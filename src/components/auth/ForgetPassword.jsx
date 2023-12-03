@@ -26,7 +26,8 @@ const ForgetPassword = () => {
           </div>
         </form>
       </div>
-    </Container>  )
+    </Container> 
+     )
 }
 
 export default ForgetPassword

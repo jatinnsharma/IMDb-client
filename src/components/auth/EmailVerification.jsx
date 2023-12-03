@@ -47,13 +47,17 @@ const EmailVerification = () => {
 
   return (
     <Container className="flex justify-center items-center ">
-      <div className=" bg-primary h-96 w-8/12 lg:w-3/12  flex justify-center items-center flex-col rounded">
+      <div className=" bg-primary h-64 w-8/12 lg:w-3/12  flex justify-center items-center flex-col rounded">
         <form className="text-white space-y-6">
           <div>
-            <Title>Please the OTP to verify your account</Title>
-            <p className="text-center  text-slate-500">
+            <Title>
+                <div className="text-xl">
+                Please the OTP to verify your account
+                </div>
+            <p className="text-center  text-gray-600 text-base font-semibold">
               OTP has been sent to your email
             </p>
+            </Title>
           </div>
           <div className="flex justify-center items-center space-x-4">
             {otp.map((_, index) => {
