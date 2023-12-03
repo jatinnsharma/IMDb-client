@@ -8,11 +8,13 @@ const IMDb_LOGO =
 const Navbar = () => {
   return (
     <div className="bg-primary h-14 flex justify-around items-center">
+      <Link to='/'>
       <img
         className="mix-blend-lighten h-6 md:h-8"
         src={IMDb_LOGO}
         alt="logo"
       />
+      </Link>
 
       <div className="flex gap-2">
         <input
