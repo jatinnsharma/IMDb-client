@@ -11,7 +11,7 @@ const sendingData = "http://localhost:8080/sign-in";
 const Login = () => {
   return (
     <Container className="flex justify-center items-center ">
-      <div className=" bg-primary h-96 w-8/12 lg:w-3/12  flex justify-center items-center flex-col">
+      <div className=" bg-primary h-96 w-8/12 lg:w-3/12  flex justify-center items-center flex-col rounded">
         <Title>Login</Title>
         <form
           action={sendingData}

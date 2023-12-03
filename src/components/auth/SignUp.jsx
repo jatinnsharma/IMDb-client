@@ -8,7 +8,7 @@ import CustomLink from '../CustomLink'
 const SignUp = () => {
   return (
     <Container className="flex justify-center items-center ">
-    <div className=" bg-primary h-96 w-8/12 lg:w-3/12  flex justify-center items-center flex-col">
+    <div className=" bg-primary h-[65vh] w-8/12 lg:w-3/12  flex justify-center items-center flex-col rounded">
       <Title>Sign Up</Title>
       <form
         
