@@ -1,15 +1,16 @@
-import React from "react";
 import Container from "../Container";
 import Title from "../form/Title";
 import FormInput from "../form/FormInput";
 import SubmitButton from "../form/SubmitButton";
-import { Link } from "react-router-dom";
 import CustomLink from "../CustomLink";
+import { useTheme } from "../../hooks/theme";
 
 const sendingData = "http://localhost:8080/sign-in";
 
 const Login = () => {
+  
   return (
+    
     <Container className="flex justify-center items-center ">
       <div className=" bg-primary h-96 w-8/12 lg:w-3/12  flex justify-center items-center flex-col rounded">
         <Title>Login</Title>

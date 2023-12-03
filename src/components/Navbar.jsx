@@ -1,11 +1,13 @@
 import React from "react";
 import { BsFillSunFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { useTheme } from "../hooks/theme";
 
 const IMDb_LOGO =
   "https://1000marche.net/wp-content/uploads/2021/08/Imdb-logo.png";
 
 const Navbar = () => {
+  const {toggleTheme} = useTheme()
   return (
     <div className="bg-primary h-14 flex justify-around items-center">
       <Link to='/'>
@@ -31,7 +33,7 @@ const Navbar = () => {
       </div>
       <div>
         <ul className="text-white flex items-center gap-6">
-          <button className="bg-stone-700 p-1 rounded">
+          <button onClick={toggleTheme} className="bg-stone-700 p-1 rounded">
             <BsFillSunFill className="text-secondary" size={24} />
           </button>
           <li>

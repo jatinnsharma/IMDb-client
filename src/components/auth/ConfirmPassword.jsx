@@ -3,7 +3,6 @@ import FormInput from "../form/FormInput";
 import Title from "../form/Title";
 import Container from "../Container";
 import SubmitButton from "../form/SubmitButton";
-import CustomLink from "../CustomLink";
 
 export const ConfirmPassword = () => {
   return (
