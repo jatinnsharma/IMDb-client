@@ -9,7 +9,7 @@ const Navbar = () => {
         <img className='mix-blend-lighten h-6 md:h-8' src={IMDb_LOGO} alt="logo" />
         
         <div className='flex gap-2'>
-        <input type="text" placeholder='Search IMDb'  className='pl-2 w-[40vw] rounded border-2 border-yellow-500 placeholder-gray-700 outline-none' />
+        <input type="text" placeholder='Search IMDb'  className='pl-2 w-[40vw] rounded border-[3px] border-yellow-400 placeholder-gray-700 outline-none focus:border-yellow-600 ' />
             <button type='submit' className='bg-yellow-400 p-1 font-semibold rounded hover:bg-yellow-500 '>Search</button>
         </div>
         <div>
