@@ -4,6 +4,16 @@ import Title from "../form/Title";
 import SubmitButton from "../form/SubmitButton";
 import { useLocation, useNavigate } from "react-router-dom";
 
+const isValidOTP = (otp) =>{
+  let valid = false;
+
+  for(let val of otp){
+    valid = isNaN(parseInt(val))
+    if(!valid) break;
+  }
+  return valid;
+}
+
 const OTP_LENGTH = 6;
 const OTP_BOX = new Array(OTP_LENGTH).fill("");
 const EmailVerification = () => {
@@ -47,7 +57,11 @@ const EmailVerification = () => {
     const handleSubmit = (e)=>{
       e.preventDefault()
 
-      
+      if(isValidOTP(otp)){
+        return console.log('invalid OTP ')
+
+
+      }
     }
 
     useEffect(()=>{
@@ -88,7 +102,7 @@ const EmailVerification = () => {
               );
             })}
           </div>
-          <SubmitButton value="Send Link" />
+          <SubmitButton value="Verify Account" />
         </form>
       </div>
     </Container>
