@@ -3,19 +3,23 @@ import Container from "../Container";
 import Title from "../form/Title";
 import SubmitButton from "../form/SubmitButton";
 import { useLocation, useNavigate } from "react-router-dom";
+import { verifyUserEmail } from "../../api/auth";
+
+const OTP_LENGTH = 6;
+const OTP_BOX = new Array(OTP_LENGTH).fill("");
+let currentOTPIndex;
 
 const isValidOTP = (otp) =>{
   let valid = false;
 
   for(let val of otp){
-    valid = isNaN(parseInt(val))
+    valid = !isNaN(parseInt(val))
     if(!valid) break;
   }
   return valid;
 }
 
-const OTP_LENGTH = 6;
-const OTP_BOX = new Array(OTP_LENGTH).fill("");
+
 const EmailVerification = () => {
 
     const [otp, setOtp] = useState(OTP_BOX);
@@ -24,7 +28,7 @@ const EmailVerification = () => {
     const inputRef = useRef();
     const {state} = useLocation()
     const user = state?.user
-    const nagivate = useNavigate()
+    const navigate = useNavigate();
     const focusNextInputField=(index)=>{
         setActiveOtpIndex(index+1)
     }
@@ -34,45 +38,49 @@ const EmailVerification = () => {
         const diff = index - 1;
         // cannot be negative
         nextIndex = diff !== 0 ? diff : 0;
-
         setActiveOtpIndex(nextIndex)
     }
-    const handleOtpChange = ({target},index)=>{
+    const handleOtpChange = ({target})=>{
         const {value} = target;
         const newOtp = [...otp]
-        newOtp[index] = value.substring(value.length-1,value.length);
+        newOtp[currentOTPIndex] = value.substring(value.length-1,value.length);
         
-        if(!value) focusPrevInputField(index);
-        else focusNextInputField(index);
-
+        if(!value) focusPrevInputField(currentOTPIndex);
+        else focusNextInputField(currentOTPIndex);
         setOtp([...newOtp]);
     }
 
     const handleKeyDown = ({key},index)=>{
+      currentOTPIndex=index
         if(key==='Backspace'){
-            focusPrevInputField(index)
+            focusPrevInputField(currentOTPIndex)
         }
     }
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
       e.preventDefault()
-
-      if(isValidOTP(otp)){
+      if(!isValidOTP(otp)){
         return console.log('invalid OTP ')
-
-
       }
-    }
+    // submit otp
+    const { error, message } = await verifyUserEmail({
+      OTP: otp.join(""),
+      userId: user.id,
+    });
+    if (error) return console.log(error);
+
+    console.log(message);
+  };
 
     useEffect(()=>{
         inputRef.current?.focus()
     },[activeOtpIndex])
 
-    useEffect(()=>{
-      if(!user) return nagivate('/not-found')
-    },[user])
+    useEffect(() => {
+      if (!user) navigate("/not-found");
+    }, [user]);
 
-    if(!user) return null;
+    // if(!user) return null;
 
   return (
     <Container className="flex justify-center items-center ">
