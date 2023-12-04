@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import FormInput from "../form/FormInput";
 import SubmitButton from "../form/SubmitButton";
 import Container from "../Container";
@@ -31,6 +32,8 @@ const SignUp = () => {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = ({ target }) => {
     const { name, value } = target;
     setUserInfo({ ...userInfo, [name]: value });
@@ -40,12 +43,18 @@ const SignUp = () => {
     const { ok, error } = validateUserInfo(userInfo);
 
     if (!ok) return console.log(error);
-   const response = await createUser(userInfo);
-   if(response.error) return console.log(response.error)
-   console.log(response.user)
+    const response = await createUser(userInfo);
+    if (response.error) return console.log(response.error);
+
+    navigate("/auth/verification", {
+      state: { user: response.user },
+      replace: true,
+    });
+    console.log(response.user);
   };
 
   const { name, email, password } = userInfo;
+
   return (
     <Container className="flex justify-center items-center ">
       <div className=" bg-primary h-[65vh] w-8/12 lg:w-3/12  flex justify-center items-center flex-col rounded">

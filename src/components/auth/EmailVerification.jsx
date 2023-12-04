@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Container from "../Container";
 import Title from "../form/Title";
 import SubmitButton from "../form/SubmitButton";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const OTP_LENGTH = 6;
 const OTP_BOX = new Array(OTP_LENGTH).fill("");
@@ -11,7 +12,9 @@ const EmailVerification = () => {
     const [activeOtpIndex,setActiveOtpIndex] = useState(0);
 
     const inputRef = useRef();
-
+    const {state} = useLocation()
+    const user = state?.user
+    const nagivate = useNavigate()
     const focusNextInputField=(index)=>{
         setActiveOtpIndex(index+1)
     }
@@ -45,6 +48,12 @@ const EmailVerification = () => {
         inputRef.current?.focus()
     },[activeOtpIndex])
 
+    useEffect(()=>{
+      if(!user) return nagivate('/not-found')
+    },[user])
+
+    if(!user) return null;
+
   return (
     <Container className="flex justify-center items-center ">
       <div className=" bg-primary h-64 w-8/12 lg:w-3/12  flex justify-center items-center flex-col rounded">
@@ -70,7 +79,6 @@ const EmailVerification = () => {
                 onKeyDown={(e)=>handleKeyDown(e,index)}
                 type="number"
                  className="w-10 h-10 border-2 border-gray-400 focus:border-white rounded bg-transparent outline-none text-center text-white font-semibold text-xl" />
-
               );
             })}
           </div>
