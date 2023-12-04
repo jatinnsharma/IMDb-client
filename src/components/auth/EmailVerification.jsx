@@ -44,6 +44,12 @@ const EmailVerification = () => {
         }
     }
 
+    const handleSubmit = (e)=>{
+      e.preventDefault()
+
+      
+    }
+
     useEffect(()=>{
         inputRef.current?.focus()
     },[activeOtpIndex])
@@ -57,7 +63,7 @@ const EmailVerification = () => {
   return (
     <Container className="flex justify-center items-center ">
       <div className=" bg-primary h-64 w-8/12 lg:w-3/12  flex justify-center items-center flex-col rounded">
-        <form className="text-white space-y-6">
+        <form onSubmit={handleSubmit} className="text-white space-y-6">
           <div>
             <Title>
                 <div className="text-xl">
