@@ -5,21 +5,42 @@ import Container from "../Container";
 import Title from "../form/Title";
 import CustomLink from "../CustomLink";
 
+const validateUserInfo = ({ name, email, password }) => {
+  const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  const isValidName = /^[a-z A-Z]+$/;
+
+  if (!name.trim()) return { ok: false, error: "Name is missing!" };
+  if (!isValidName.test(name)) return { ok: false, error: "Invalid name!" };
+
+  if (!email.trim(isValidEmail))
+    return { ok: false, error: "Email is missing!" };
+  if (!isValidEmail.test(email)) return { ok: false, error: "Invalid email!" };
+
+  if (!password.trim()) return { ok: false, error: "Password is missing!" };
+  if (password.length < 8)
+    return { ok: false, error: "Password must be 8 characters long!" };
+
+  return { ok: true };
+};
+
 const SignUp = () => {
   const [userInfo, setUserInfo] = useState({
-    name:"",
-    email:"",
-    password:""
+    name: "",
+    email: "",
+    password: "",
   });
 
-  const handleChange = ({target}) =>{
-    const {name,value} = target;
-    setUserInfo({...userInfo,[name]:value})
-  }
-  const handleSubmit = (e) =>{
-    e.preventDefault()
-    console.log(userInfo)
-  }
+  const handleChange = ({ target }) => {
+    const { name, value } = target;
+    setUserInfo({ ...userInfo, [name]: value });
+  };
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const { ok, error } = validateUserInfo(userInfo);
+
+    if (!ok) return console.log(error);
+    console.log(userInfo);
+  };
 
   const { name, email, password } = userInfo;
   return (
@@ -34,7 +55,7 @@ const SignUp = () => {
             name="name"
             onChange={handleChange}
           />
-          
+
           <FormInput
             label="Email"
             placeholder="jatinsharma2231@gmail.com"
@@ -48,7 +69,7 @@ const SignUp = () => {
             placeholder="********"
             name="password"
             value={password}
-            type='password'
+            type="password"
             onChange={handleChange}
           />
           <SubmitButton value="Sign Up" />
