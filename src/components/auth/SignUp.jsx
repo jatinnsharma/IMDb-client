@@ -4,6 +4,7 @@ import SubmitButton from "../form/SubmitButton";
 import Container from "../Container";
 import Title from "../form/Title";
 import CustomLink from "../CustomLink";
+import { createUser } from "../../api/auth";
 
 const validateUserInfo = ({ name, email, password }) => {
   const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -34,12 +35,14 @@ const SignUp = () => {
     const { name, value } = target;
     setUserInfo({ ...userInfo, [name]: value });
   };
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { ok, error } = validateUserInfo(userInfo);
 
     if (!ok) return console.log(error);
-    console.log(userInfo);
+   const response = await createUser(userInfo);
+   if(response.error) return console.log(response.error)
+   console.log(response.user)
   };
 
   const { name, email, password } = userInfo;
