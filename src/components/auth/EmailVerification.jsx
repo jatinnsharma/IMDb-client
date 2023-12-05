@@ -4,6 +4,7 @@ import Title from "../form/Title";
 import SubmitButton from "../form/SubmitButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { verifyUserEmail } from "../../api/auth";
+import { useNotification } from "../../hooks/theme";
 
 const OTP_LENGTH = 6;
 const OTP_BOX = new Array(OTP_LENGTH).fill("");
@@ -26,6 +27,8 @@ const EmailVerification = () => {
     const [activeOtpIndex,setActiveOtpIndex] = useState(0);
 
     const inputRef = useRef();
+    const { updateNotification } = useNotification();
+
     const {state} = useLocation()
     const user = state?.user
     const navigate = useNavigate();
@@ -67,9 +70,9 @@ const EmailVerification = () => {
       OTP: otp.join(""),
       userId: user.id,
     });
-    if (error) return console.log(error);
+    if (error) return updateNotification("error",error);
 
-    console.log(message);
+    updateNotification('succes',message)
   };
 
     useEffect(()=>{

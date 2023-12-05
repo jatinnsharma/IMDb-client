@@ -6,6 +6,7 @@ import Container from "../Container";
 import Title from "../form/Title";
 import CustomLink from "../CustomLink";
 import { createUser } from "../../api/auth";
+import { useNotification } from "../../hooks/theme";
 
 const validateUserInfo = ({ name, email, password }) => {
   const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -33,6 +34,7 @@ const SignUp = () => {
   });
 
   const navigate = useNavigate();
+  const {updateNotification} = useNotification()
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -42,7 +44,7 @@ const SignUp = () => {
     e.preventDefault();
     const { ok, error } = validateUserInfo(userInfo);
 
-    if (!ok) return console.log(error);
+    if (!ok) return updateNotification("error",error);
     const response = await createUser(userInfo);
     if (response.error) return console.log(response.error);
 
@@ -50,7 +52,6 @@ const SignUp = () => {
       state: { user: response.user },
       replace: true,
     });
-    console.log(response.user);
   };
 
   const { name, email, password } = userInfo;
