@@ -4,7 +4,7 @@ import Title from "../form/Title";
 import SubmitButton from "../form/SubmitButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { verifyUserEmail } from "../../api/auth";
-import { useNotification } from "../../hooks/theme";
+import { useNotification } from "../../hooks";
 
 const OTP_LENGTH = 6;
 const OTP_BOX = new Array(OTP_LENGTH).fill("");

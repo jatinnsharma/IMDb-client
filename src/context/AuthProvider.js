@@ -1,7 +1,7 @@
 import React, { createContext, useState } from "react";
 import { signInUser } from "../api/auth";
 
-const AuthContext = createContext();
+export const AuthContext = createContext();
 
 const defaultAuthInfo = {
   profile: null,

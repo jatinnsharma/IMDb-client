@@ -40,6 +40,7 @@ const SignUp = () => {
     const { name, value } = target;
     setUserInfo({ ...userInfo, [name]: value });
   };
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const { ok, error } = validateUserInfo(userInfo);
