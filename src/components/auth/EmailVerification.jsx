@@ -31,7 +31,9 @@ const EmailVerification = () => {
 
     const {state} = useLocation()
     const user = state?.user
+
     const navigate = useNavigate();
+
     const focusNextInputField=(index)=>{
         setActiveOtpIndex(index+1)
     }
@@ -63,8 +65,9 @@ const EmailVerification = () => {
     const handleSubmit = async (e)=>{
       e.preventDefault()
       if(!isValidOTP(otp)){
-        return console.log('invalid OTP ')
+        return updateNotification('error','Invalid OTP ')
       }
+
     // submit otp
     const { error, message } = await verifyUserEmail({
       OTP: otp.join(""),
@@ -72,7 +75,7 @@ const EmailVerification = () => {
     });
     if (error) return updateNotification("error",error);
 
-    updateNotification('succes',message)
+    updateNotification('success',message)
   };
 
     useEffect(()=>{
