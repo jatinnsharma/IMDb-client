@@ -4,7 +4,7 @@ import Title from "../form/Title";
 import SubmitButton from "../form/SubmitButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import { verifyUserEmail } from "../../api/auth";
-import { useNotification } from "../../hooks";
+import { useAuth, useNotification } from "../../hooks";
 
 const OTP_LENGTH = 6;
 const OTP_BOX = new Array(OTP_LENGTH).fill("");
@@ -29,6 +29,8 @@ const EmailVerification = () => {
     const inputRef = useRef();
     const { updateNotification } = useNotification();
 
+    const {isAuth,authInfo} = useAuth();
+    const {isLoggedIn} = authInfo;
     const {state} = useLocation()
     const user = state?.user
 
@@ -69,13 +71,15 @@ const EmailVerification = () => {
       }
 
     // submit otp
-    const { error, message } = await verifyUserEmail({
+    const { error, message, user:userResponse } = await verifyUserEmail({
       OTP: otp.join(""),
       userId: user.id,
     });
     if (error) return updateNotification("error",error);
 
     updateNotification('success',message)
+    localStorage.setItem('auth-token',userResponse.token);
+    isAuth();
   };
 
     useEffect(()=>{
@@ -84,7 +88,8 @@ const EmailVerification = () => {
 
     useEffect(() => {
       if (!user) navigate("/not-found");
-    }, [user]);
+      if (isLoggedIn) navigate("/");
+    }, [user,isLoggedIn]);
 
     // if(!user) return null;
 
