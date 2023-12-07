@@ -8,7 +8,7 @@ const IMDb_LOGO =
 
 const Navbar = () => {
   const {toggleTheme} = useTheme();
-  const {authInfo} = useAuth();
+  const {authInfo,handleLogout} = useAuth();
   const {isLoggedIn} = authInfo;
 
 
@@ -43,8 +43,8 @@ const Navbar = () => {
           <li>
             {
               isLoggedIn ? (
-                  <Link>Log out </Link>):(
-                <Link to="/auth/login">Login</Link>
+                 <button onClick={handleLogout}><Link>Log out</Link></button>):(
+                <button><Link to="/auth/login">Login</Link></button>
               )
             }
           </li>
