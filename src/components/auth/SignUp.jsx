@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../form/FormInput";
 import SubmitButton from "../form/SubmitButton";
@@ -6,7 +6,7 @@ import Container from "../Container";
 import Title from "../form/Title";
 import CustomLink from "../CustomLink";
 import { createUser } from "../../api/auth";
-import { useNotification } from "../../hooks";
+import { useAuth, useNotification } from "../../hooks";
 
 const validateUserInfo = ({ name, email, password }) => {
   const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -27,6 +27,7 @@ const validateUserInfo = ({ name, email, password }) => {
 };
 
 const SignUp = () => {
+
   const [userInfo, setUserInfo] = useState({
     name: "",
     email: "",
@@ -35,6 +36,9 @@ const SignUp = () => {
 
   const navigate = useNavigate();
   const {updateNotification} = useNotification()
+  const {authInfo } = useAuth();
+  const {isLoggedIn} = authInfo;
+
 
   const handleChange = ({ target }) => {
     const { name, value } = target;
@@ -55,7 +59,15 @@ const SignUp = () => {
     });
   };
 
+  
+  useEffect(()=>{
+    // we want to move our user to somewhere else
+    if(isLoggedIn) navigate('/')
+
+  },[isLoggedIn]);
+
   const { name, email, password } = userInfo;
+
 
   return (
     <Container className="flex justify-center items-center ">

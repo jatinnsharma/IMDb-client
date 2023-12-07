@@ -32,3 +32,18 @@ export const signInUser = async(userInfo) =>{
         return {error:err.message || err}
     }
 }
+export const getIsAuth = async(token) =>{
+    try{
+       const {data} = await client.get('/user/is-auth',{
+        headers:{
+            Authorization:'Bearer ' + token,
+            accept:'application/json'
+        }
+       })
+       return data;
+    }catch(err){
+        const {response} = err;
+        if(response?.data) return response.data;
+        return {error:err.message || err}
+    }
+}

@@ -1,13 +1,17 @@
 import React from "react";
 import { BsFillSunFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { useTheme } from "../hooks";
+import { useAuth, useTheme } from "../hooks";
 
 const IMDb_LOGO =
   "https://1000marche.net/wp-content/uploads/2021/08/Imdb-logo.png";
 
 const Navbar = () => {
-  const {toggleTheme} = useTheme()
+  const {toggleTheme} = useTheme();
+  const {authInfo} = useAuth();
+  const {isLoggedIn} = authInfo;
+
+
   return (
     <div className="bg-primary h-14 flex justify-around items-center">
       <Link to='/'>
@@ -37,7 +41,12 @@ const Navbar = () => {
             <BsFillSunFill className="text-secondary" size={24} />
           </button>
           <li>
-            <Link to="/auth/login">Login</Link>
+            {
+              isLoggedIn ? (
+                  <Link>Log out </Link>):(
+                <Link to="/auth/login">Login</Link>
+              )
+            }
           </li>
           <li></li>
         </ul>

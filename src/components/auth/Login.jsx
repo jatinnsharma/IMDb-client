@@ -3,7 +3,7 @@ import Title from "../form/Title";
 import FormInput from "../form/FormInput";
 import SubmitButton from "../form/SubmitButton";
 import CustomLink from "../CustomLink";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth, useNotification } from "../../hooks";
 
@@ -24,12 +24,12 @@ const validateUserInfo = ({ email, password }) => {
 };
 
 const Login = () => {
-  const navigate = useNavigate();
+  const negative = useNavigate()
   const { updateNotification } = useNotification();
   const { handleLogin, authInfo } = useAuth();
-  const {isPending} = authInfo
+  const {isPending,isLoggedIn} = authInfo;
   const [userInfo, setUserInfo] = useState({
-    email: "",
+    email: "", 
     password: "",
   });
   
@@ -45,6 +45,12 @@ const Login = () => {
     if (!ok) return updateNotification("error", error);
     handleLogin(userInfo.email,userInfo.password)
   };
+
+  useEffect(()=>{
+    // we want to move our user to somewhere else
+    if(isLoggedIn) negative('/')
+
+  },[isLoggedIn]);
 
   return (
     <Container className="flex justify-center items-center ">
