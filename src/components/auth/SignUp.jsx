@@ -7,9 +7,9 @@ import Title from "../form/Title";
 import CustomLink from "../CustomLink";
 import { createUser } from "../../api/auth";
 import { useAuth, useNotification } from "../../hooks";
+import { isValidEmail } from "../../utils/helper";
 
 const validateUserInfo = ({ name, email, password }) => {
-  const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
   const isValidName = /^[a-z A-Z]+$/;
 
   if (!name.trim()) return { ok: false, error: "Name is missing!" };

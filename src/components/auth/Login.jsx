@@ -6,11 +6,11 @@ import CustomLink from "../CustomLink";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth, useNotification } from "../../hooks";
+import { isValidEmail } from "../../utils/helper";
 
 const sendingData = "http://localhost:8080/sign-in";
 
 const validateUserInfo = ({ email, password }) => {
-  const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
   if (!email.trim(isValidEmail))
     return { ok: false, error: "Email is missing!" };
