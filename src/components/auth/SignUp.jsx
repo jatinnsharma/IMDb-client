@@ -6,7 +6,7 @@ import Container from "../Container";
 import Title from "../form/Title";
 import CustomLink from "../CustomLink";
 import { createUser } from "../../api/auth";
-import { useNotification } from "../../hooks/theme";
+import { useNotification } from "../../hooks";
 
 const validateUserInfo = ({ name, email, password }) => {
   const isValidEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
