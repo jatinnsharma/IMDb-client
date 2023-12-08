@@ -1,10 +1,17 @@
 import React from "react";
+import { useSearchParams } from "react-router-dom";
 import FormInput from "../form/FormInput";
 import Title from "../form/Title";
 import Container from "../Container";
 import SubmitButton from "../form/SubmitButton";
 
 export const ConfirmPassword = () => {
+  const [searchParams] = useSearchParams()
+  const token = searchParams.get('token')
+  const id = searchParams.get('id')
+
+  // isValid , isVerifying , !isValid
+
   return (
     <Container className="flex justify-center items-center ">
       <div className=" bg-primary h-96 w-8/12 lg:w-3/12  flex justify-center items-center flex-col rounded">
